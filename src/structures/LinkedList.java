@@ -1,4 +1,4 @@
-package algorithms;
+package structures;
 
 public class LinkedList {
 }

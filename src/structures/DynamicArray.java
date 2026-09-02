@@ -1,4 +1,4 @@
-package algorithms;
+package structures;
 
 /**
  * Dynamic array that acts exactly as an array list

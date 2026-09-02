@@ -1,5 +1,9 @@
-package algorithms;
+package algorithms.searching;
 
+/**
+ * Has a big(O) notation of log(n), both in best and worst case scenarios
+ * Useful in large data searches and can only work with sorted data
+ */
 public class BinarySearch {
 
     /**

@@ -1,19 +1,19 @@
-import algorithms.DynamicArray;
+import algorithms.sorting.BubbleSort;
+
+import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Main {
 
     public static void main(String[] args) {
-        DynamicArray<Number> dynamicArray = new DynamicArray<>();
 
-        dynamicArray.append(24);
-        dynamicArray.append(25);
-        dynamicArray.append(26);
-        dynamicArray.append(27);
-        dynamicArray.append(28);
-        dynamicArray.append(29);
+        LinkedList<String> linkedList = new LinkedList<>();
 
-        System.out.println("Dynamic Array list: " + dynamicArray);
-        System.out.println("Capacity: " + dynamicArray.capacity);
+        int[] array = {6, 3, 5, 8, 1 , 9, 2, 7, 4, 0};
+
+        BubbleSort.sort(array);
+
+        System.out.println(Arrays.toString(array));
     }
 
     public static int indexOf(long[] arr, long target) {
