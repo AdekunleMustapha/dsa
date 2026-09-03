@@ -1,4 +1,5 @@
 import algorithms.sorting.BubbleSort;
+import structures.SinglyLinkedList;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -7,13 +8,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        LinkedList<String> linkedList = new LinkedList<>();
+        SinglyLinkedList<Integer> linkedList = new SinglyLinkedList<Integer>();
 
-        int[] array = {6, 3, 5, 8, 1 , 9, 2, 7, 4, 0};
+        linkedList.appendLast(22);
+        linkedList.appendLast(67);
+        linkedList.appendFirst(88);
+        linkedList.insert(17, 1);
+        linkedList.insert(1, 1);
+        linkedList.removeTail();
 
-        BubbleSort.sort(array);
-
-        System.out.println(Arrays.toString(array));
+        System.out.println(linkedList);
     }
 
     public static int indexOf(long[] arr, long target) {
