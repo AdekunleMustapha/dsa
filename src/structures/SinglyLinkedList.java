@@ -4,7 +4,6 @@ package structures;
  * To achieve a singly linked list, I employed the use a class as my node
  * With a big(O) notation of (n) when iterating through elements and less advantages compared
  * to random access of data unlike arrays
- *
  * So the node contains the data of the element and the class of the next node, it's
  * my make do for a pointer to a new variable. These nodes are encapsulated in the class
  *

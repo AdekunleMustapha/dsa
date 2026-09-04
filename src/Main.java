@@ -1,4 +1,5 @@
 import algorithms.sorting.BubbleSort;
+import algorithms.sorting.SelectionSort;
 import structures.SinglyLinkedList;
 
 import java.util.Arrays;
@@ -8,16 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        SinglyLinkedList<Integer> linkedList = new SinglyLinkedList<Integer>();
-
-        linkedList.appendLast(22);
-        linkedList.appendLast(67);
-        linkedList.appendFirst(88);
-        linkedList.insert(17, 1);
-        linkedList.insert(1, 1);
-        linkedList.removeTail();
-
-        System.out.println(linkedList);
+        System.out.println(factorial(5));
     }
 
     public static int indexOf(long[] arr, long target) {
@@ -25,5 +17,15 @@ public class Main {
             if(target ==  arr[i]) return i;
         }
         return -1;
+    }
+
+    /**
+     * Practicing recursion, good due to simpler code but bad because it eats memory
+     */
+    public static int factorial(int number){
+
+        if(number == 1) return 1;
+
+        return number * factorial(number - 1);
     }
 }
