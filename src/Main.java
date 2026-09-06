@@ -1,6 +1,7 @@
 import algorithms.sorting.BubbleSort;
 import algorithms.sorting.InsertionSort;
 import algorithms.sorting.SelectionSort;
+import structures.DoublyLinkedList;
 import structures.SinglyLinkedList;
 
 import java.lang.reflect.Array;
@@ -11,11 +12,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[] array = {9, 3, 4, 6, 7, 8, 0, 1, 2, 5};
-
-        InsertionSort.sort(array);
-
-        System.out.println(Arrays.toString(array));
     }
 
     public static int indexOf(long[] arr, long target) {
@@ -27,6 +23,7 @@ public class Main {
 
     /**
      * Practicing recursion, good due to simpler code but bad because it eats memory
+     * Useful for learning merge sort and quick sort
      */
     public static int factorial(int number){
 
