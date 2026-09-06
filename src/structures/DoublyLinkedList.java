@@ -56,21 +56,31 @@ public class DoublyLinkedList <T>{
         ++size;
     }
 
-    public void removeLast() {
-       Node<T> n = this.tail.prev;
-       n.next = null;
-       this.tail = n;
-       --size;
+    public boolean removeLast() {
+        if(isEmpty()) return false;
+
+        Node<T> n = this.tail.prev;
+        n.next = null;
+        this.tail = n;
+        --size;
+        return true;
     }
 
-    public void removeFirst() {
+    public boolean removeFirst() {
+        if(isEmpty()) return false;
+
         Node<T> n = this.head.next;
         n.prev = null;
         this.head = n;
         --size;
+        return true;
     }
 
-    public void removeAtIndexOf(int index) {
+    public boolean removeAt(int index) {
+        if(isEmpty()) return false;
+
+        if(index == 0) return this.removeFirst();
+
         Node<T> n = this.head;
         for(int i = 0; i < index; i++) {
             n = n.next;
@@ -80,6 +90,7 @@ public class DoublyLinkedList <T>{
         prevNode.next = nextNode;
         nextNode.prev = prevNode;
         --size;
+        return true;
     }
 
     public T getLast() {
