@@ -1,5 +1,6 @@
 import algorithms.sorting.BubbleSort;
 import algorithms.sorting.InsertionSort;
+import algorithms.sorting.MergeSort;
 import algorithms.sorting.SelectionSort;
 import structures.DoublyLinkedList;
 import structures.SinglyLinkedList;
@@ -11,7 +12,11 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
+        int[] array = { 9, 2, 5, 4, 6, 7, 1, 0, 3, 5};
 
+        MergeSort.sort(array);
+
+        System.out.println(Arrays.toString(array));
     }
 
     public static int indexOf(long[] arr, long target) {
