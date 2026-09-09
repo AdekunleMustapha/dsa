@@ -1,7 +1,4 @@
-import algorithms.sorting.BubbleSort;
-import algorithms.sorting.InsertionSort;
-import algorithms.sorting.MergeSort;
-import algorithms.sorting.SelectionSort;
+import algorithms.sorting.*;
 import structures.DoublyLinkedList;
 import structures.SinglyLinkedList;
 
@@ -14,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         int[] array = { 9, 2, 5, 4, 6, 7, 1, 0, 3, 5};
 
-        MergeSort.sort(array);
+        QuickSort.sort(array, 0, array.length - 1);
 
         System.out.println(Arrays.toString(array));
     }
