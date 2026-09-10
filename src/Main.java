@@ -1,5 +1,6 @@
 import algorithms.sorting.*;
 import structures.DoublyLinkedList;
+import structures.HashTable;
 import structures.SinglyLinkedList;
 
 import java.lang.reflect.Array;
@@ -9,11 +10,12 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
-        int[] array = { 9, 2, 5, 4, 6, 7, 1, 0, 3, 5};
+        HashTable<String, Integer> hashTable = new HashTable<>();
 
-        QuickSort.sort(array, 0, array.length - 1);
+        hashTable.put("A", 23);
+        hashTable.put("B", 23);
 
-        System.out.println(Arrays.toString(array));
+        System.out.println(hashTable);
     }
 
     public static int indexOf(long[] arr, long target) {
