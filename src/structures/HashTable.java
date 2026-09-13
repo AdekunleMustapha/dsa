@@ -1,5 +1,20 @@
 package structures;
 
+/**
+ * A crude hash table that aims to show the internals of how java util hash table works
+ * Pass in a Key-Value pair, where the key represents the access/ name of a bucket
+ * and is used to access the value in the bucket, a hash table is an array of
+ * indexed hashed keys, where when a collision is encountered, it links the new
+ * bucket to the previous bucket of that index of the array
+ *
+ * Insertion - big(O) O(1)
+ * Removal - O(1), worst case scenario of O(n)
+ * Get - O(1), worst case scenario of O(n)
+ *
+ * Best world between linked list and array list
+ * @param <K> key
+ * @param <V> Value
+ */
 public class HashTable<K, V> {
 
     private static class Bucket<K, V> {
@@ -14,54 +29,79 @@ public class HashTable<K, V> {
         }
     }
 
-    private Bucket<K, V>[] buckets;
+    private Bucket[] buckets;
     public int size = 0;
-    private int defaultCapacity = 10;
-    private double loadCapacityThreshold = 0.75;
+    private int DEFAULT_CAPACITY = 10;
+    private double DEFAULT_THRESHOLD_CAPACITY = 0.75;
 
     public HashTable(){
-        this.buckets = new Bucket[this.defaultCapacity];
+        this.buckets = new Bucket[this.DEFAULT_CAPACITY];
     }
 
     public HashTable(int capacity) {
         this.buckets = new Bucket[capacity];
-        this.defaultCapacity = capacity;
+        this.DEFAULT_CAPACITY = capacity;
     }
 
     public HashTable(int capacity, double loadCapacityThreshold) {
         this.buckets = new Bucket[capacity];
-        this.defaultCapacity = capacity;
-        this.loadCapacityThreshold = loadCapacityThreshold;
+        this.DEFAULT_CAPACITY = capacity;
+        this.DEFAULT_THRESHOLD_CAPACITY = loadCapacityThreshold;
     }
 
     public void put(K key, V value) {
-        // check load capacity of bucket
-        if(size >= buckets.length * loadCapacityThreshold) {
+        if(size >= this.DEFAULT_THRESHOLD_CAPACITY * this.buckets.length) {
             resize();
         }
 
-        // check if bucket already exists
-        int index = this.hash(key);
-        Bucket<K, V> bucket = buckets[index];
+        int index = toIndex(key);
+        Bucket<K,V> bucket = this.buckets[index];
 
-        // checks to see if index already exists
+        //check if bucket exists and change value by provided key
         while(bucket != null) {
-            if(java.util.Objects.equals(bucket.key, key)){
+            if(java.util.Objects.equals(bucket.key, key)) {
                 bucket.value = value;
                 return;
             }
             bucket = bucket.next;
         }
 
-        // if it doesn't
-        buckets[index] = new Bucket<K, V>( key, value, buckets[index]);
+        // insert into beginning of index to give insertion O(1)
+        this.buckets[index] = new Bucket<K,V>(key, value, this.buckets[index]);
         ++size;
     }
 
-    public V get(K key) {
-        int index = hash(key);
-        Bucket<K, V> bucket = buckets[index];
+    public boolean remove(K key) {
+        int index = toIndex(key);
+        Bucket<K,V> bucket = this.buckets[index];
+        Bucket<K,V> prevBucket = null;
 
+        // using linked list remove pattern to remove
+        // a bucket by its index
+        while(bucket != null) {
+            if(java.util.Objects.equals(bucket.key, key)) {
+                // remove head if prev is null
+                if (prevBucket == null) {
+                    this.buckets[index] = bucket.next;
+                } else {
+                    prevBucket.next = bucket.next;
+                }
+                --size;
+                return  true;
+            }
+            prevBucket = bucket;
+            bucket = bucket.next;
+        }
+
+        // no match
+        return false;
+    }
+
+    public V get(K key) {
+        int index = toIndex(key);
+        Bucket<K,V> bucket = this.buckets[index];
+
+        //check if bucket exists and change value by provided key
         while(bucket != null) {
             if(java.util.Objects.equals(bucket.key, key)) {
                 return bucket.value;
@@ -72,45 +112,27 @@ public class HashTable<K, V> {
         return null;
     }
 
-    public boolean remove(K key) {
-        int index = hash(key);
-        Bucket<K, V> bucket = buckets[index];
-        Bucket<K , V> prevBucket = null;
-
-        while(bucket != null) {
-            if(java.util.Objects.equals(bucket.key, key)) {
-                //remove head
-                if(prevBucket == null) {
-                    buckets[index] = bucket.next;
-                } else {
-                    prevBucket.next = bucket.next;
-                }
-                --size;
-                return true;
-            }
-            prevBucket = bucket;
-            bucket = bucket.next;
-        }
-
-        return false;
+    /**
+     * Hashes the data type using custom .hashCode() method
+     * then converts it to its positive hash before using array
+     * modulo to find its index
+     */
+    private int toIndex(K key) {
+        if(key == null)  return 0;
+        int hash = key.hashCode();
+        hash ^= (hash >>> 16);
+        return (hash & 0x7fffffff) % this.buckets.length;
     }
 
-    private int hash(K key) {
-        if(key == null) return 0;
-        int hashcode = key.hashCode();
-        hashcode ^= hashcode >>> 16;
-        return (hashcode & 0x7fffffff) % buckets.length;
-    }
+    private  void resize() {
+        Bucket<K,V>[] oldBuckets = this.buckets;
+        this.buckets = new Bucket[this.buckets.length * 2];
+        this.size = 0; // avoids infinite recursion
 
-    private void resize() {
-        Bucket<K , V>[] oldBuckets = buckets;
-        buckets = new Bucket[oldBuckets.length * 2];
-        size = 0;
-
-        for(Bucket headBucket : oldBuckets) {
-            Bucket<K, V> currentBucket = headBucket;
+        for(Bucket<K,V> currentBucket : oldBuckets) {
             while(currentBucket != null) {
-                put(currentBucket.key, currentBucket.value);
+                // helps hashing and indexing of bucket into new array
+                this.put( currentBucket.key, currentBucket.value);
                 currentBucket = currentBucket.next;
             }
         }
