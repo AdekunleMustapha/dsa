@@ -75,15 +75,16 @@ public class AdjacencyList<K> implements IGraph<K> {
     @Override
     public boolean checkEdge(K src, K dst) {
         int srcIndex = this.vertices.indexOf(src);
+        int dstIndex = this.vertices.indexOf(dst);
 
-        if(srcIndex == -1) return false;
+        if((srcIndex == -1) || (dstIndex == -1)) return false;
 
         LinkedList<Node<K>> currentList = this.arrayList.get(srcIndex);
+        Node<K> target = this.arrayList.get(dstIndex).getFirst();
 
+        // use of java.util.Object.equals() will not work
         for(Node<K> dstNode : currentList) {
-            if(java.util.Objects.equals(dstNode, new Node<K>(dst))) {
-                return true;
-            }
+            if(dstNode == target) return true;
         }
 
         return false;

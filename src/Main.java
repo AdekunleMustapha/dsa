@@ -1,10 +1,11 @@
+import graphs.algorithms.AdjacencyList;
 import graphs.algorithms.AdjacencyMatrix;
 import graphs.interfaces.IGraph;
 
 public class Main {
 
     public static void main(String[] args) {
-        IGraph<Character> graph = new AdjacencyMatrix<>();
+        IGraph<Character> graph = new AdjacencyList<>();
 
         // add nodes
         graph.addNode('A');
