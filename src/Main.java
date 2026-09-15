@@ -1,21 +1,26 @@
-import algorithms.sorting.*;
-import structures.DoublyLinkedList;
-import structures.HashTable;
-import structures.SinglyLinkedList;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.LinkedList;
+import graphs.algorithms.AdjacencyMatrix;
+import graphs.interfaces.IGraph;
 
 public class Main {
 
     public static void main(String[] args) {
-        HashTable<String, Integer> hashTable = new HashTable<>();
+        IGraph<Character> graph = new AdjacencyMatrix<>();
 
-        hashTable.put("A", 23);
-        hashTable.put("B", 23);
+        // add nodes
+        graph.addNode('A');
+        graph.addNode('B');
+        graph.addNode('C');
+        graph.addNode('D');
 
-        System.out.println(hashTable);
+        // create edges
+        graph.addEdge('A', 'B');
+        graph.addEdge('A', 'C');
+
+        // test results
+        System.out.println(graph.checkEdge('A', 'B'));
+        System.out.println(graph.checkEdge('B', 'C'));
+        System.out.println(graph.checkEdge('A', 'C'));
+        System.out.println(graph.checkEdge('a', 'b'));
     }
 
     public static int indexOf(long[] arr, long target) {
