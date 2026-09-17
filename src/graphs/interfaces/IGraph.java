@@ -17,6 +17,12 @@ public interface IGraph<K> {
 
     boolean removeEdge(K src, K dst);
 
+    // Possible algorithms done using graphs
+
+    void depthFirstSearch(K src);
+
+    void breadthFirstSearch(K src);
+
     @Override()
     String toString();
 }

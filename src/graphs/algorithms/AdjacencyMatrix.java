@@ -20,7 +20,7 @@ public class AdjacencyMatrix<K> implements IGraph<K> {
 
     private boolean matrix[][]; // C-type declaration intentional, just for fun
     private final ArrayList<K> vertices = new ArrayList<K>();
-    private int size;
+    private int size; // number of nodes (vertices)
 
     @Override
     public void addNode(K node) {
@@ -61,5 +61,44 @@ public class AdjacencyMatrix<K> implements IGraph<K> {
         this.matrix[srcIndex][dstIndex] = false;
 
         return true;
+    }
+
+    @Override
+    public void depthFirstSearch(K src) {
+        // each index in the visited array represents the vertices
+        boolean[] visited = new boolean[size];
+        dfsHelper(src, visited);
+    }
+
+    /**
+     * Using the advantage of call stack for search; by using
+     * recursion
+     */
+    private void dfsHelper(K src, boolean[] visited) {
+        // check if node has been visited, by checking the visited boolean array
+        int indexOfSrc = vertices.indexOf(src);
+
+        // if found as true; visited
+        if(visited[indexOfSrc]) {
+            return; // base case
+        } else {
+            // mark as visited
+            visited[indexOfSrc] = true;
+        }
+
+        // tell the node visited
+        System.out.println(src + " visited");
+
+        for(int i = 0; i < matrix[indexOfSrc].length; i++) {
+            if(matrix[indexOfSrc][i]) {
+                K nextSrc = vertices.get(i);
+                dfsHelper(nextSrc, visited);
+            }
+        }
+    }
+
+    @Override
+    public void breadthFirstSearch(K src) {
+
     }
 }

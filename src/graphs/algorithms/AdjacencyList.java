@@ -110,4 +110,14 @@ public class AdjacencyList<K> implements IGraph<K> {
 
         return false;
     }
+
+    @Override
+    public void breadthFirstSearch(K src) {
+
+    }
+
+    @Override
+    public void depthFirstSearch(K src) {
+
+    }
 }
