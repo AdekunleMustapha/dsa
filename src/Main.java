@@ -5,7 +5,7 @@ import graphs.interfaces.IGraph;
 public class Main {
 
     public static void main(String[] args) {
-        IGraph<Character> graph = new AdjacencyMatrix<>();
+        IGraph<Character> graph = new AdjacencyList<>();
 
         // add nodes
         graph.addNode('A');
@@ -14,6 +14,7 @@ public class Main {
         graph.addNode('D');
         graph.addNode('E');
         graph.addNode('F');
+        graph.addNode('M');
 
         // create edges
         graph.addEdge('A', 'B');
@@ -21,6 +22,7 @@ public class Main {
         graph.addEdge('A', 'F');
         graph.addEdge('C', 'E');
         graph.addEdge('E', 'B');
+        graph.addEdge('A', 'M');
 
         // test results
         System.out.println(graph.checkEdge('A', 'B'));

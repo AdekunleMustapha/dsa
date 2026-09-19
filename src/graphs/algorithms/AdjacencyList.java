@@ -3,8 +3,7 @@ package graphs.algorithms;
 import graphs.entities.Node;
 import graphs.interfaces.IGraph;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Another directed graph that connects nodes(vertices) by implementation
@@ -116,8 +115,38 @@ public class AdjacencyList<K> implements IGraph<K> {
 
     }
 
+    /**
+     * Using a stack and iterations, rather than call stack
+     * with te use of hash sets to mark visited nodes
+     */
     @Override
     public void depthFirstSearch(K src) {
+        // return nothing for incorrect src
+        if(!this.vertices.contains(src)) return;
 
+        //use hashset for unique nodes, to keep track of visited nodes
+        Set<K> visited = new HashSet<>();
+        // uses stacks for backward tracking
+        Stack<K> stack = new Stack<K>();
+        stack.push(src);
+
+        while(!stack.isEmpty()) {
+            // takes the last element in the stack
+            // giving the algorithm right depth first rather than left depth first
+            K current = stack.pop();
+
+            // ensures visited nodes are not re-visited
+            if(!visited.add(current)) continue;
+            visited.add(current);
+            System.out.println(current + ": visited");
+
+            // makes the visited node to be the new starting point
+            LinkedList<Node<K>> currentList = this.arrayList.get(this.vertices.indexOf(current));
+
+            // add all elements in the current list, before re-iterating
+            for(Node<K> next: currentList) {
+                stack.push(next.name);
+            }
+        }
     }
 }

@@ -91,8 +91,8 @@ public class AdjacencyMatrix<K> implements IGraph<K> {
 
         for(int i = 0; i < matrix[indexOfSrc].length; i++) {
             if(matrix[indexOfSrc][i]) {
-                K nextSrc = vertices.get(i);
-                dfsHelper(nextSrc, visited);
+                src = vertices.get(i);
+                dfsHelper(src, visited);
             }
         }
     }
