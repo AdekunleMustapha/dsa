@@ -2,7 +2,7 @@ package graphs.algorithms;
 
 import graphs.interfaces.IGraph;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Adjacency matrix, a graph interface implementation that used to represent how
@@ -97,8 +97,38 @@ public class AdjacencyMatrix<K> implements IGraph<K> {
         }
     }
 
+    /**
+     * Using hash set has a way of storing unique values; visited vertices
+     */
     @Override
     public void breadthFirstSearch(K src) {
+        if(!this.vertices.contains(src)) return; //base case for invalid vertex
 
+        Queue<K> queue = new LinkedList<>();
+        Set<K> visited = new HashSet<>();
+
+        // enqueue first element
+        queue.offer(src);
+        visited.add(src);
+
+        // constantly dequeue till no element is left
+        while(!queue.isEmpty()) {
+            src = queue.poll(); //dequeue new element
+            System.out.println(src + ": visited");
+
+            // gets the boolean array (edge connections) for the src array
+            boolean[] siblings = this.matrix[this.vertices.indexOf(src)];
+
+            // check through src siblings for an edge
+            for(int i = 0; i < siblings.length; i++) {
+                if(siblings[i]) {
+                    K neighbor = this.vertices.get(i);
+                    // only enqueue unvisited siblings into the list to avoid redundancy
+                    if(visited.add(neighbor)) {
+                        queue.offer(neighbor);
+                    }
+                }
+            }
+        }
     }
 }
