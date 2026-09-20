@@ -112,7 +112,30 @@ public class AdjacencyList<K> implements IGraph<K> {
 
     @Override
     public void breadthFirstSearch(K src) {
+        if(!this.vertices.contains(src)) return; //base case for invalid vertex
 
+        Set<K> visited = new HashSet<>();
+        Queue<K> queue = new LinkedList<>();
+
+        // enqueue first element
+        visited.add(src);
+        queue.offer(src);
+
+        // constantly dequeue till no element is left
+        while(!queue.isEmpty()) {
+            src = queue.poll(); //dequeue new element
+            System.out.println(src + ": visited");
+
+            // gets the linked list (edge connections) for the src in the array list
+            LinkedList<Node<K>> siblings = this.arrayList.get(this.vertices.indexOf(src));
+
+            // check through src siblings for  un-visited nodes
+            for(Node<K> neighbor : siblings) {
+                if(visited.add(neighbor.name)) {
+                    queue.offer(neighbor.name); // enqueues only un-visited siblings
+                }
+            }
+        }
     }
 
     /**

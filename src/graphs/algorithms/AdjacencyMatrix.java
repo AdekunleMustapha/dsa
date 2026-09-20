@@ -24,9 +24,23 @@ public class AdjacencyMatrix<K> implements IGraph<K> {
 
     @Override
     public void addNode(K node) {
+        if(this.vertices.contains(node)) return; //avoid redundancy
+
         this.vertices.add(node);
         ++size;
-        this.matrix = new boolean[size][size];
+
+        boolean[][] newMatrix = new boolean[size][size];
+
+        // avoids memory loss of previous edges by copying of old connection to new connection
+        if(this.matrix != null) {
+            for(int i = 0; i < this.matrix.length; i++) {
+                for(int j = 0; j < this.matrix[i].length; j++) {
+                    newMatrix[i][j] = this.matrix[i][j];
+                }
+            }
+        }
+
+        this.matrix = newMatrix;
     }
 
     @Override
@@ -65,6 +79,8 @@ public class AdjacencyMatrix<K> implements IGraph<K> {
 
     @Override
     public void depthFirstSearch(K src) {
+        if(!this.vertices.contains(src)) return; //base condition
+
         // each index in the visited array represents the vertices
         boolean[] visited = new boolean[size];
         dfsHelper(src, visited);
