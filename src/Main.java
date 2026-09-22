@@ -1,40 +1,20 @@
 import graphs.algorithms.AdjacencyList;
 import graphs.algorithms.AdjacencyMatrix;
 import graphs.interfaces.IGraph;
+import trees.BinarySearchTree;
 
 public class Main {
 
     public static void main(String[] args) {
-        IGraph<Character> graph = new AdjacencyList<>();
+        BinarySearchTree tree = new BinarySearchTree();
 
-        // add nodes
-        graph.addNode('A');
-        graph.addNode('B');
-        graph.addNode('C');
-        graph.addNode('D');
-        graph.addNode('E');
-        graph.addNode('F');
-        graph.addNode('M');
-        graph.addNode('G');
-        graph.addNode('N');
+        tree.insert(3);
+        tree.insert(9);
+        tree.insert(2);
+        tree.insert(7);
+        tree.insert(1);
 
-        // create edges
-        graph.addEdge('A', 'B');
-        graph.addEdge('A', 'C');
-        graph.addEdge('A', 'F');
-        graph.addEdge('C', 'E');
-        graph.addEdge('A', 'M');
-        graph.addEdge('F', 'G');
-        graph.addEdge('M', 'G');
-        graph.addEdge('E', 'N');
-
-        // test results
-        System.out.println(graph.checkEdge('A', 'B'));
-        System.out.println(graph.checkEdge('B', 'C'));
-        System.out.println(graph.checkEdge('A', 'C'));
-        System.out.println(graph.checkEdge('a', 'b'));
-
-        graph.breadthFirstSearch('A');
+        tree.display();
     }
 
     public static int indexOf(long[] arr, long target) {
