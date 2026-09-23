@@ -1,7 +1,4 @@
-import graphs.algorithms.AdjacencyList;
-import graphs.algorithms.AdjacencyMatrix;
-import graphs.interfaces.IGraph;
-import trees.BinarySearchTree;
+import algorithms.BinarySearchTree;
 
 public class Main {
 
@@ -13,6 +10,7 @@ public class Main {
         tree.insert(2);
         tree.insert(7);
         tree.insert(1);
+        tree.remove(7);
 
         tree.display();
     }
